@@ -9,4 +9,8 @@ import { ModalService } from 'src/app/services/modal.service';
 export class ModalComponent {
   constructor(public modal: ModalService) {
   }
+
+  toggleModal(): void {
+    this.modal.toggleModal();
+  }
 }
