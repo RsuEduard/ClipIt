@@ -5,7 +5,7 @@
     <label class="inline-block mb-2">Name</label>
     <app-input
       placeholder="Enter Name"
-      [control]="registerFrom.controls.name"
+      [control]="name"
     ></app-input>
   </div>
   <!-- Email -->
@@ -14,14 +14,14 @@
     <app-input
       inputType="email"
       placeholder="Enter Email"
-      [control]="registerFrom.controls.email"
+      [control]="email"
     >
     </app-input>
   </div>
   <!-- Age -->
   <div class="mb-3">
     <label class="inline-block mb-2">Age</label>
-    <app-input inputType="number" [control]="registerFrom.controls.age">
+    <app-input inputType="number" [control]="age">
     </app-input>
   </div>
   <!-- Password -->
@@ -30,7 +30,7 @@
     <app-input
       inputType="password"
       placeholder="Password"
-      [control]="registerFrom.controls.password"
+      [control]="password"
     ></app-input>
   </div>
   <!-- Confirm Password -->
@@ -39,7 +39,7 @@
     <app-input
       inputType="password"
       placeholder="Confirm Password"
-      [control]="registerFrom.controls.confirmPassword"
+      [control]="confirmPassword"
     >
     </app-input>
   </div>
@@ -48,7 +48,8 @@
     <label class="inline-block mb-2">Phone Number</label>
     <app-input
       placeholder="Enter Phone Number"
-      [control]="registerFrom.controls.phoneNumber"
+      [control]="phoneNumber"
+      format="0000 000 000"
     >
     </app-input>
   </div>
