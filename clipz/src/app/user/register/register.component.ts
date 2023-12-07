@@ -7,12 +7,19 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
+  name = new FormControl('', [Validators.required, Validators.minLength(3)]);
+  email = new FormControl('');
+  age = new FormControl('');
+  password = new FormControl('');
+  confirmPassword = new FormControl('');
+  phoneNumber = new FormControl('');
+
   registerFrom = new FormGroup({
-    name: new FormControl(''),
-    email: new FormControl(''),
-    age: new FormControl(''),
-    password: new FormControl(''),
-    confirmPassword: new FormControl(''),
-    phoneNumber: new FormControl(''),
+    name: this.name,
+    email: this.email,
+    age: this.age,
+    password: this.password,
+    confirmPassword: this.confirmPassword,
+    phoneNumber: this.phoneNumber,
   });
 }
