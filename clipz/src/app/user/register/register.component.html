@@ -1,32 +1,28 @@
+<app-alert *ngIf="showAlert" [color]="alertColor">
+  {{ alertMsg }}
+</app-alert>
+
 <!-- Registration Form -->
-<form [formGroup]="registerFrom">
+<form [formGroup]="registerFrom" (ngSubmit)="register()">
   <!-- Name -->
   <div class="mb-3">
-    <label class="inline-block mb-2">Name</label>
-    <app-input
-      placeholder="Enter Name"
-      [control]="name"
-    ></app-input>
+    <label class="inline-block mb-2">Name*</label>
+    <app-input placeholder="Enter Name" [control]="name"></app-input>
   </div>
   <!-- Email -->
   <div class="mb-3">
-    <label class="inline-block mb-2">Email</label>
-    <app-input
-      inputType="email"
-      placeholder="Enter Email"
-      [control]="email"
-    >
+    <label class="inline-block mb-2">Email*</label>
+    <app-input inputType="email" placeholder="Enter Email" [control]="email">
     </app-input>
   </div>
   <!-- Age -->
   <div class="mb-3">
-    <label class="inline-block mb-2">Age</label>
-    <app-input inputType="number" [control]="age">
-    </app-input>
+    <label class="inline-block mb-2">Age*</label>
+    <app-input inputType="number" [control]="age"> </app-input>
   </div>
   <!-- Password -->
   <div class="mb-3">
-    <label class="inline-block mb-2">Password</label>
+    <label class="inline-block mb-2">Password*</label>
     <app-input
       inputType="password"
       placeholder="Password"
@@ -35,7 +31,7 @@
   </div>
   <!-- Confirm Password -->
   <div class="mb-3">
-    <label class="inline-block mb-2">Confirm Password</label>
+    <label class="inline-block mb-2">Confirm Password*</label>
     <app-input
       inputType="password"
       placeholder="Confirm Password"
@@ -45,7 +41,7 @@
   </div>
   <!-- Phone Number -->
   <div class="mb-3">
-    <label class="inline-block mb-2">Phone Number</label>
+    <label class="inline-block mb-2">Phone Number*</label>
     <app-input
       placeholder="Enter Phone Number"
       [control]="phoneNumber"
@@ -55,7 +51,8 @@
   </div>
   <button
     type="submit"
-    class="block w-full bg-indigo-400 text-white py-1.5 px-3 rounded transition hover:bg-indigo-500"
+    class="disabled:opacity-50 disabled:bg-indigo-400 block w-full bg-indigo-400 text-white py-1.5 px-3 rounded transition hover:bg-indigo-500"
+    [disabled]="registerFrom.invalid"
   >
     Submit
   </button>
