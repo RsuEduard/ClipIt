@@ -7,8 +7,16 @@ import { Component } from '@angular/core';
 })
 export class UploadComponent {
   isDragover: boolean = false;
+  file: File | null = null;
+  isFormVisible: boolean = false;
 
-  storeFile($event: Event) {
+  storeFile($event: DragEvent) {
     this.isDragover = false;
+    this.file = $event.dataTransfer?.files.item(0) ?? null;
+
+    if (!this.file || this.file.type !== 'video/mp4') {
+      return;
+    }
+    this.isFormVisible = true;
   }
 }
