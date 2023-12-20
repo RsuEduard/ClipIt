@@ -1,7 +1,8 @@
 <!-- Main Content -->
 <section class="container mx-auto my-8 bg-secondary p-6">
   <app-alert *ngIf="isAlertVisible" [color]="alertColor">
-    {{ alertMsg }}
+    <p>{{ alertMsg }}</p>
+    <p *ngIf="isPercentageVisible">{{ percentage | percent }}</p>
   </app-alert>
   <div class="rounded relative flex flex-col">
     <div class="font-bold mb-6">Upload Video</div>
