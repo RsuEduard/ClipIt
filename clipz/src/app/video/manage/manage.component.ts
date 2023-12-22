@@ -58,4 +58,12 @@ export class ManageComponent implements OnInit {
     this.activeClip = clip;
     return false;
   }
+
+  update($event: IClip): void {
+    this.clips.forEach((element, index) => {
+      if (element.docId === $event.docId) {
+        this.clips[index].title = $event.title;
+      }
+    });
+  }
 }
