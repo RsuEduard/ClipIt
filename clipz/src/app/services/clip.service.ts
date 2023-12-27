@@ -7,7 +7,15 @@ import {
 } from '@angular/fire/compat/firestore';
 import IClip from '../models/clip.model';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Observable, map, of, switchMap } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  combineLatest,
+  map,
+  of,
+  switchMap,
+} from 'rxjs';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +23,11 @@ import { Observable, map, of, switchMap } from 'rxjs';
 export class ClipService {
   public clipsCollection: AngularFirestoreCollection<IClip>;
 
-  constructor(db: AngularFirestore, private auth: AngularFireAuth) {
+  constructor(
+    db: AngularFirestore,
+    private auth: AngularFireAuth,
+    private storage: AngularFireStorage
+  ) {
     this.clipsCollection = db.collection('clips');
   }
 
@@ -23,14 +35,18 @@ export class ClipService {
     return this.clipsCollection.add(data);
   }
 
-  getUserClips() {
-    return this.auth.user.pipe(
-      switchMap((user) => {
+  getUserClips(sort$: BehaviorSubject<string>) {
+    return combineLatest([this.auth.user, sort$]).pipe(
+      switchMap((values) => {
+        const [user, sort] = values;
+
         if (!user) {
           return of([]);
         }
 
-        const query = this.clipsCollection.ref.where('uid', '==', user.uid);
+        const query = this.clipsCollection.ref
+          .where('uid', '==', user.uid)
+          .orderBy('timestamp', sort === '1' ? 'desc' : 'asc');
         return query.get();
       }),
       map((snapshot) => (snapshot as QuerySnapshot<IClip>).docs)
@@ -40,6 +56,13 @@ export class ClipService {
   updateClip(id: string, title: string) {
     return this.clipsCollection.doc(id).update({
       title,
+    });
+  }
+
+  deleteClip(clip: IClip) {
+    const clipRef = this.storage.ref(`clips/${clip.fileName}`);
+    clipRef.delete().subscribe(async () => {
+      await this.clipsCollection.doc(clip.docId).delete();
     });
   }
 }
