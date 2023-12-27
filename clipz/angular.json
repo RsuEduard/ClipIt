@@ -27,7 +27,12 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "input": "node_modules/@ffmpeg/core/dist/esm",
+                "output": "node_modules/@ffmpeg/core/dist/esm",
+                "glob": "*"
+              }
             ],
             "styles": [
               "src/styles.scss"
