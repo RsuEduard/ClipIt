@@ -32,6 +32,11 @@
                 "input": "node_modules/@ffmpeg/core/dist/esm",
                 "output": "node_modules/@ffmpeg/core/dist/esm",
                 "glob": "*"
+              },
+              {
+                "input": "node_modules/@ffmpeg/core/dist/umd",
+                "output": "node_modules/@ffmpeg/core/dist/umd",
+                "glob": "*"
               }
             ],
             "styles": [
@@ -82,7 +87,13 @@
               "browserTarget": "clipz:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "headers": {
+              "Cross-Origin-Opener-Policy": "same-origin",
+              "Cross-Origin-Embedder-Policy": "require-corp"
+            }
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
