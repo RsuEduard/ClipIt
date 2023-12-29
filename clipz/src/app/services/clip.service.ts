@@ -9,7 +9,6 @@ import IClip from '../models/clip.model';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
   BehaviorSubject,
-  Observable,
   combineLatest,
   map,
   of,
