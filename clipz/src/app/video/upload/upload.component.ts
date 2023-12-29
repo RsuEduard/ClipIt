@@ -32,6 +32,7 @@ export class UploadComponent implements OnDestroy {
   alertColor: string = 'blue';
   alertMsg: string = '';
   inSubmission: boolean = false;
+  screenshots: string[] = [];
 
   title: FormControl = new FormControl('', {
     validators: [Validators.required, Validators.minLength(3)],
@@ -71,7 +72,7 @@ export class UploadComponent implements OnDestroy {
       return;
     }
 
-    await this.ffmpegService.getScreenshots(this.file);
+    this.screenshots = await this.ffmpegService.getScreenshots(this.file);
 
     this.title.setValue(this.file.name.replace(/\.[^/.]+$/, ''));
     this.isFormVisible = true;
@@ -111,7 +112,7 @@ export class UploadComponent implements OnDestroy {
             title: this.title.value,
             fileName: `${this.clipFileName}.mp4`,
             url,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
           };
 
           const clipDocRef = await this.clipService.createClip(clip);
