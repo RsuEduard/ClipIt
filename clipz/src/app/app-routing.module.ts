@@ -21,6 +21,11 @@ const routes: Routes = [
     resolve: { clip: clipResolver },
   },
   {
+    path: '',
+    loadChildren: async () =>
+      (await import('./video/video.module')).VideoModule
+  },
+  {
     path: '**',
     component: NotFoundComponent,
   },
