@@ -10,6 +10,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
   BehaviorSubject,
   combineLatest,
+  forkJoin,
   map,
   of,
   switchMap,
@@ -60,7 +61,11 @@ export class ClipService {
 
   deleteClip(clip: IClip) {
     const clipRef = this.storage.ref(`clips/${clip.fileName}`);
-    clipRef.delete().subscribe(async () => {
+    const screenthotRef = this.storage.ref(
+      `screenshots/${clip.screenshotFileName}`
+    );
+
+    forkJoin([clipRef.delete(), screenthotRef.delete()]).subscribe(async () => {
       await this.clipsCollection.doc(clip.docId).delete();
     });
   }
