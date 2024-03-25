@@ -6,6 +6,8 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v4.1.1
+      - name: Change directory
+        run: cd clipz
       - name: install dependencies
         run: npm ci
       - name: Run tests
