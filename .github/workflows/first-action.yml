@@ -1,0 +1,20 @@
+# name of the workflow
+name: First Workflow
+
+#Define when workflow should be executed
+on: workflow_dispatch
+
+#Define jobs
+jobs: 
+  #name of the job
+  first-job:
+    #Define the environment
+    runs-on: ubuntu-latest
+    #Define the steps
+    steps:
+      #Name of the step
+      - name: Print greeting
+        # shell command that will be executed
+        run: echo "Hello!"
+      - name: Print goodbye
+        run: echo "Good bye!"
