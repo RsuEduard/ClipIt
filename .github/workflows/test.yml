@@ -7,9 +7,9 @@ jobs:
       - name: Get code
         uses: actions/checkout@v4.1.1
       - name: install dependencies
-        run: npm ci --watch=false
+        run: npm ci
         working-directory: ./clipz
       - name: Run tests
-        run: npm test
+        run: npm test --watch=false
         working-directory: ./clipz
 
