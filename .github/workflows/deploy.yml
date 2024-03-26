@@ -22,5 +22,9 @@ jobs:
           git checkout ${{ secrets.MAIN_BRANCH }} &&
           git pull &&
           cd ${{secrets.NPM_DIR}} &&
+          npm ci &&
           npm run build &&
+          sudo rm -r /var/www/html/* &&
+          sudo cp -a ${{ secrets.BUILD_DIR }} /var/www/html
+          sudo systemctl restart apache2
           exit"
