@@ -22,5 +22,6 @@ jobs:
         working-directory: ./clipz
       - name: build the project
         run: ng build
+        working-directory: ./clipz
       - name: deploy
         run: echo "Deploying..."
