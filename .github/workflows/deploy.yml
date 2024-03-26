@@ -1,0 +1,28 @@
+name: Deployment
+on: [push, workflow_dispatch]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4.1.1
+      - name: install dependencies
+        run: npm ci
+        working-directory: ./clipz
+      - name: Run tests
+        run: ng test --watch=false
+        working-directory: ./clipz
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v4.1.1
+      - name: install dependencies
+        run: npm ci
+        working-directory: ./clipz
+      - name: build the project
+        run: npm run build
+        working-directory: ./clipz
+      - name: deploy
+        run: echo "Deploying..."
