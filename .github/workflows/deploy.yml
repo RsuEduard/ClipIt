@@ -1,4 +1,4 @@
-name: Run tests on push
+name: Deployment
 on: push
 jobs:
   test:
@@ -13,6 +13,7 @@ jobs:
         run: ng test --watch=false
         working-directory: ./clipz
   deploy:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Get code
