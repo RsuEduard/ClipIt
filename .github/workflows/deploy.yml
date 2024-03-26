@@ -1,28 +1,26 @@
-name: Deployment
-on: [push, workflow_dispatch]
+name: deploy
+on:
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get code
-        uses: actions/checkout@v4.1.1
-      - name: install dependencies
-        run: npm ci
-        working-directory: ./clipz
-      - name: Run tests
-        run: ng test --watch=false
-        working-directory: ./clipz
   deploy:
-    needs: test
+    name: deploy
     runs-on: ubuntu-latest
+
     steps:
-      - name: Get code
-        uses: actions/checkout@v4.1.1
-      - name: install dependencies
-        run: npm ci
-        working-directory: ./clipz
-      - name: build the project
-        run: npm run build
-        working-directory: ./clipz
-      - name: deploy
-        run: echo "Deploying..."
+      - name: install ssh keys
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts
+      
+      - name: connect and pull
+        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd ${{ secrets.WORK_DIR }} && 
+          git checkout ${{ secrets.MAIN_BRANCH }} &&
+          git pull &&
+          cd ${{secrets.NPM_DIR}} &&
+          npm run build &&
+          exit"
