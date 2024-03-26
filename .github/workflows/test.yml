@@ -10,6 +10,6 @@ jobs:
         run: npm ci
         working-directory: ./clipz
       - name: Run tests
-        run: npm test --watch=false
+        run: ng test --watch=false
         working-directory: ./clipz
 
